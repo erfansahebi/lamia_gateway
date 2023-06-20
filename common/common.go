@@ -6,16 +6,16 @@ import (
 	"github.com/google/uuid"
 )
 
-func GetUserIDFromContext(ctx context.Context) uuid.UUID {
+func GetUserIDFromContext(ctx context.Context) (uuid.UUID, error) {
 	userData := ctx.Value(middleware.ContextUser)
 	if userData == nil {
-		return uuid.Nil
+		return uuid.Nil, ErrMissingAuthorizationToken
 	}
 
 	userID, err := uuid.Parse("userData")
 	if err != nil {
-		return uuid.Nil
+		return uuid.Nil, ErrInvalidAuthorizationToken
 	}
 
-	return userID
+	return userID, nil
 }
