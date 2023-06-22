@@ -1,2 +1,2 @@
 build:
-	docker build -t erfansahebi/lamia_gateway
+	docker build -t erfansahebi/lamia_gateway .
