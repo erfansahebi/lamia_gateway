@@ -3,7 +3,7 @@ module github.com/erfansahebi/lamia_gateway
 go 1.20
 
 require (
-	github.com/erfansahebi/lamia_shared v1.0.9
+	github.com/erfansahebi/lamia_shared v1.0.11
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/google/uuid v1.3.0
 	github.com/ilyakaznacheev/cleanenv v1.4.2
@@ -15,7 +15,11 @@ require (
 	github.com/BurntSushi/toml v1.1.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
+	github.com/mattn/go-colorable v0.1.12 // indirect
+	github.com/mattn/go-isatty v0.0.14 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rogpeppe/go-internal v1.10.1-0.20230508101108-a4f6fabd84c5 // indirect
+	github.com/rs/zerolog v1.29.1 // indirect
 	golang.org/x/net v0.10.0 // indirect
 	golang.org/x/sys v0.9.0 // indirect
 	golang.org/x/text v0.10.0 // indirect

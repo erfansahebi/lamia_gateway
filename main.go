@@ -2,11 +2,12 @@ package main
 
 import (
 	"context"
-	"errors"
 	"flag"
 	"fmt"
 	"github.com/erfansahebi/lamia_gateway/config"
 	"github.com/erfansahebi/lamia_gateway/edge/api"
+	sharedCommon "github.com/erfansahebi/lamia_shared/common"
+	"github.com/erfansahebi/lamia_shared/log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -18,6 +19,7 @@ func main() {
 
 	configurations, err := config.LoadConfig()
 	if err != nil {
+		log.WithError(err).Fatalf(ctx, "failed to load config")
 		panic(err)
 	}
 
@@ -25,13 +27,16 @@ func main() {
 
 	cmd := flag.Arg(0)
 
+	log.Infof(ctx, "Starting with command: %s", cmd)
+
 	go func() {
 		switch cmd {
 		case "serve":
 			api.StartServer(ctx, configurations)
 			cancel()
 		default:
-			panic(errors.New("wrong command"))
+			log.WithError(sharedCommon.ErrWrongCommand).Fatalf(ctx, "wrong command")
+			panic(sharedCommon.ErrWrongCommand)
 		}
 
 	}()

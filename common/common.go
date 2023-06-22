@@ -2,12 +2,12 @@ package common
 
 import (
 	"context"
-	"github.com/erfansahebi/lamia_gateway/edge/api/middleware"
+	"github.com/erfansahebi/lamia_gateway/model"
 	"github.com/google/uuid"
 )
 
 func GetUserIDFromContext(ctx context.Context) (uuid.UUID, error) {
-	userData := ctx.Value(middleware.ContextUser)
+	userData := ctx.Value(model.ContextUser)
 	if userData == nil {
 		return uuid.Nil, ErrMissingAuthorizationToken
 	}

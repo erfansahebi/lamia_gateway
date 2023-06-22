@@ -4,14 +4,9 @@ import (
 	"context"
 	"github.com/erfansahebi/lamia_gateway/common"
 	"github.com/erfansahebi/lamia_gateway/di"
+	"github.com/erfansahebi/lamia_gateway/model"
 	authProto "github.com/erfansahebi/lamia_shared/services/auth"
 	"net/http"
-)
-
-type ContextKey int
-
-const (
-	ContextUser ContextKey = iota
 )
 
 func AuthenticateMiddleware(container di.DIContainerInterface) func(http.Handler) http.Handler {
@@ -31,7 +26,7 @@ func AuthenticateMiddleware(container di.DIContainerInterface) func(http.Handler
 					return
 				}
 
-				ctx := context.WithValue(r.Context(), ContextUser, authResponse.Id)
+				ctx := context.WithValue(r.Context(), model.ContextUser, authResponse.Id)
 
 				next.ServeHTTP(rw, r.WithContext(ctx))
 			}

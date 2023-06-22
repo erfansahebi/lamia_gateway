@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/erfansahebi/lamia_gateway/di"
+	"github.com/erfansahebi/lamia_shared/log"
 	"net/http"
 )
 
@@ -69,6 +70,7 @@ func Wrap(rq RequestHandler) http.HandlerFunc {
 		response, status, err := rq(r)
 
 		if err != nil {
+			log.WithError(err).Errorf(r.Context(), "http request error")
 			HTTPErr(w, status, err)
 			return
 		}
