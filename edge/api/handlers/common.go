@@ -7,6 +7,7 @@ import (
 	"github.com/erfansahebi/lamia_gateway/di"
 	"github.com/erfansahebi/lamia_shared/log"
 	"net/http"
+	"strings"
 )
 
 var (
@@ -83,4 +84,9 @@ func Wrap(rq RequestHandler) http.HandlerFunc {
 		Response(w, ResponseStruct{Data: response}, status)
 
 	}
+}
+
+func HandleErrorFromGrpc(grpcError error) error {
+	splitError := strings.Split(grpcError.Error(), "= ")
+	return errors.New(splitError[len(splitError)-1])
 }

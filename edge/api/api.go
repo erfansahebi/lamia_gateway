@@ -24,19 +24,23 @@ func StartServer(ctx context.Context, configuration *config.Config) {
 
 	r.Route("/api", func(r chi.Router) {
 
-		r.Route("/auth", func(r chi.Router) {
+		r.Route("/v1", func(r chi.Router) {
 
-			routes.RegisterAuthRoutes(r, h)
+			r.Route("/auth", func(r chi.Router) {
 
-		})
-
-		r.Group(func(r chi.Router) {
-			r.Use(middleware.AuthenticateMiddleware(h.Di))
-			r.Route("/user", func(r chi.Router) {
-
-				routes.RegisterUserRoutes(r, h)
+				routes.RegisterAuthRoutes(r, h)
 
 			})
+
+			r.Group(func(r chi.Router) {
+				r.Use(middleware.AuthenticateMiddleware(h.Di))
+				r.Route("/user", func(r chi.Router) {
+
+					routes.RegisterUserRoutes(r, h)
+
+				})
+			})
+
 		})
 
 	})

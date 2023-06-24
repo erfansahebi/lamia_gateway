@@ -1,8 +1,10 @@
 package services
 
 import (
+	"context"
 	"github.com/erfansahebi/lamia_gateway/config"
 	"github.com/erfansahebi/lamia_gateway/services/auth"
+	"github.com/erfansahebi/lamia_shared/log"
 )
 
 type ServiceContainerInterface interface {
@@ -29,6 +31,7 @@ func (s *serviceContainer) ServerConfiguration() *config.Config {
 
 func (s *serviceContainer) Auth() auth.AuthServiceInterface {
 	if err := s.initAuth(); err != nil {
+		log.WithError(err).Fatalf(context.Background(), "error in load auth service")
 		panic(err)
 	}
 

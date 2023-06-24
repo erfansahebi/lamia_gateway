@@ -16,7 +16,7 @@ func (h *Handler) UserDetail(r *http.Request) (interface{}, int, error) {
 		UserId: userID.String(),
 	})
 	if err != nil {
-		return nil, http.StatusBadRequest, err
+		return nil, http.StatusBadRequest, HandleErrorFromGrpc(err)
 	}
 
 	return userData, http.StatusOK, nil

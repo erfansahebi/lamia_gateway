@@ -13,7 +13,7 @@ func (h *Handler) Register(r *http.Request) (interface{}, int, error) {
 		return nil, http.StatusBadRequest, ErrFailedToReadRequestBody
 	}
 
-	var pendData RegisterStruct
+	var pendData RegisterRequest
 	if err = json.Unmarshal(body, &pendData); err != nil {
 		return nil, http.StatusBadRequest, ErrFailedToUnmarshalRequestBody
 	}
@@ -32,10 +32,15 @@ func (h *Handler) Register(r *http.Request) (interface{}, int, error) {
 		},
 	})
 	if err != nil {
-		return nil, http.StatusBadRequest, err
+		return nil, http.StatusBadRequest, HandleErrorFromGrpc(err)
 	}
 
-	return authenticateData, http.StatusOK, nil
+	return RegisterResponse{
+		ID:        authenticateData.User.Id,
+		FirstName: authenticateData.User.FirstName,
+		LastName:  authenticateData.User.LastName,
+		Email:     authenticateData.User.Email,
+	}, http.StatusOK, nil
 }
 
 func (h *Handler) Login(r *http.Request) (interface{}, int, error) {
@@ -44,7 +49,7 @@ func (h *Handler) Login(r *http.Request) (interface{}, int, error) {
 		return nil, http.StatusBadRequest, ErrFailedToReadRequestBody
 	}
 
-	var pendData LoginStruct
+	var pendData LoginRequest
 	if err = json.Unmarshal(body, &pendData); err != nil {
 		return nil, http.StatusBadRequest, ErrFailedToUnmarshalRequestBody
 	}
@@ -58,8 +63,13 @@ func (h *Handler) Login(r *http.Request) (interface{}, int, error) {
 		Password: pendData.Password,
 	})
 	if err != nil {
-		return nil, http.StatusBadRequest, err
+		return nil, http.StatusBadRequest, HandleErrorFromGrpc(err)
 	}
 
-	return authenticateData, http.StatusOK, nil
+	return LoginResponse{
+		ID:        authenticateData.User.Id,
+		FirstName: authenticateData.User.FirstName,
+		LastName:  authenticateData.User.LastName,
+		Email:     authenticateData.User.Email,
+	}, http.StatusOK, nil
 }

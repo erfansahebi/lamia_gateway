@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"flag"
-	"fmt"
 	"github.com/erfansahebi/lamia_gateway/config"
 	"github.com/erfansahebi/lamia_gateway/edge/api"
 	sharedCommon "github.com/erfansahebi/lamia_shared/common"
@@ -46,7 +45,7 @@ func main() {
 
 	select {
 	case s := <-sig:
-		fmt.Printf("Received %s, graceful shut down...", s.String())
+		log.Infof(ctx, "Received %s, graceful shut down...", s.String())
 		cancel()
 	case <-ctx.Done():
 	}

@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/erfansahebi/lamia_gateway/config"
 	"github.com/erfansahebi/lamia_gateway/services"
+	"github.com/erfansahebi/lamia_shared/log"
 )
 
 type DIContainerInterface interface {
@@ -32,6 +33,7 @@ func (d *diContainer) Config() *config.Config {
 
 func (d *diContainer) Services() services.ServiceContainerInterface {
 	if err := d.initServices(); err != nil {
+		log.WithError(err).Fatalf(d.ctx, "error in load service")
 		panic(err)
 	}
 

@@ -5,40 +5,58 @@ import (
 	"github.com/erfansahebi/lamia_gateway/di"
 )
 
-type RegisterStruct struct {
+// Register
+
+type RegisterRequest struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
 	Password  string `json:"password"`
 }
 
-func (rs *RegisterStruct) Validate(ctx context.Context, container di.DIContainerInterface) error {
+func (rr *RegisterRequest) Validate(ctx context.Context, container di.DIContainerInterface) error {
 	switch {
-	case rs.FirstName == "":
+	case rr.FirstName == "":
 		return ErrEmptyFields
-	case rs.LastName == "":
+	case rr.LastName == "":
 		return ErrEmptyFields
-	case rs.Email == "":
+	case rr.Email == "":
 		return ErrEmptyFields
-	case rs.Password == "":
+	case rr.Password == "":
 		return ErrEmptyFields
 	}
 
 	return nil
 }
 
-type LoginStruct struct {
+type RegisterResponse struct {
+	ID        string `json:"id"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Email     string `json:"email"`
+}
+
+// Login
+
+type LoginRequest struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
-func (ls *LoginStruct) Validate(ctx context.Context, container di.DIContainerInterface) error {
+func (lr *LoginRequest) Validate(ctx context.Context, container di.DIContainerInterface) error {
 	switch {
-	case ls.Email == "":
+	case lr.Email == "":
 		return ErrEmptyFields
-	case ls.Password == "":
+	case lr.Password == "":
 		return ErrEmptyFields
 	}
 
 	return nil
+}
+
+type LoginResponse struct {
+	ID        string `json:"id"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Email     string `json:"email"`
 }
