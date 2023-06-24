@@ -24,6 +24,7 @@ func (h *Handler) Register(r *http.Request) (interface{}, int, error) {
 
 	authenticateData, err := h.Di.Services().Auth().Client().Register(r.Context(), &authProto.RegisterRequest{
 		User: &authProto.UserStruct{
+			Id:        "",
 			FirstName: pendData.FirstName,
 			LastName:  pendData.LastName,
 			Email:     pendData.Email,
