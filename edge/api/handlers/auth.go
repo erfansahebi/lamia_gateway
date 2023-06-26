@@ -79,3 +79,15 @@ func (h *Handler) Login(r *http.Request) (interface{}, int, error) {
 		AuthorizationToken: authenticateData.AuthorizationToken,
 	}, http.StatusOK, nil
 }
+
+func (h *Handler) Logout(r *http.Request) (interface{}, int, error) {
+	authorizationToken := r.Header.Get("Authorization")
+
+	if _, err := h.Di.Services().Auth().Client().Logout(r.Context(), &authProto.LogoutRequest{
+		AuthorizationToken: authorizationToken,
+	}); err != nil {
+		return nil, http.StatusBadRequest, HandleErrorFromGrpc(err)
+	}
+
+	return nil, http.StatusOK, nil
+}

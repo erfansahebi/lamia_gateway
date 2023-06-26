@@ -3,7 +3,7 @@ module github.com/erfansahebi/lamia_gateway
 go 1.20
 
 require (
-	github.com/erfansahebi/lamia_shared v1.0.15
+	github.com/erfansahebi/lamia_shared v1.0.18
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/google/uuid v1.3.0
 	github.com/ilyakaznacheev/cleanenv v1.4.2
