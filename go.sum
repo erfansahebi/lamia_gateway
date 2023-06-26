@@ -2,8 +2,8 @@ github.com/BurntSushi/toml v1.1.0 h1:ksErzDEI1khOiGPgpwuI7x2ebx/uXQNw7xJpn9Eq1+I
 github.com/BurntSushi/toml v1.1.0/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
 github.com/coreos/go-systemd/v22 v22.5.0/go.mod h1:Y58oyj3AT4RCenI/lSvhwexgC+NSVTIJ3seZv2GcEnc=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
-github.com/erfansahebi/lamia_shared v1.0.14 h1:9dH0JpT/BnySXPl1s1uh9UlspFEj5jDBd9TPlABDG1M=
-github.com/erfansahebi/lamia_shared v1.0.14/go.mod h1:k9wzTMOph1JmKO5irm39j11yMXtP9DH05/4k7jC2irk=
+github.com/erfansahebi/lamia_shared v1.0.15 h1:FU6aSzatvnOYn3/KbJ49+LZK3UZRBTuI9l3740nGb4Y=
+github.com/erfansahebi/lamia_shared v1.0.15/go.mod h1:k9wzTMOph1JmKO5irm39j11yMXtP9DH05/4k7jC2irk=
 github.com/go-chi/chi/v5 v5.0.8 h1:lD+NLqFcAi1ovnVZpsnObHGW4xb4J8lNmoYVfECH1Y0=
 github.com/go-chi/chi/v5 v5.0.8/go.mod h1:DslCQbL2OYiznFReuXYUmQ2hGd1aDpCnlMNITLSKoi8=
 github.com/godbus/dbus/v5 v5.0.4/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5xrFpKfA=

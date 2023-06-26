@@ -7,5 +7,5 @@ import (
 
 func RegisterAuthRoutes(r chi.Router, h handlers.Handler) {
 	r.Post("/register", handlers.Wrap(h.Register))
-	r.Post("/Login", handlers.Wrap(h.Login))
+	r.Post("/login", handlers.Wrap(h.Login))
 }

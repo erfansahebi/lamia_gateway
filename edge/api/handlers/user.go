@@ -19,5 +19,10 @@ func (h *Handler) UserDetail(r *http.Request) (interface{}, int, error) {
 		return nil, http.StatusBadRequest, HandleErrorFromGrpc(err)
 	}
 
-	return userData, http.StatusOK, nil
+	return UserDetailResponse{AuthorizationUserResponse{
+		ID:        userData.User.Id,
+		FirstName: userData.User.FirstName,
+		LastName:  userData.User.LastName,
+		Email:     userData.User.Email,
+	}}, http.StatusOK, nil
 }

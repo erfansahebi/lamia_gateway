@@ -5,13 +5,21 @@ import (
 	"github.com/erfansahebi/lamia_gateway/di"
 )
 
-// Register
-
-type RegisterRequest struct {
+type AuthorizationUserResponse struct {
+	ID        string `json:"id"`
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
-	Password  string `json:"password"`
+}
+
+// Register
+
+type RegisterRequest struct {
+	FirstName       string `json:"first_name"`
+	LastName        string `json:"last_name"`
+	Email           string `json:"email"`
+	Password        string `json:"password"`
+	PasswordConfirm string `json:"password_confirm"`
 }
 
 func (rr *RegisterRequest) Validate(ctx context.Context, container di.DIContainerInterface) error {
@@ -24,16 +32,18 @@ func (rr *RegisterRequest) Validate(ctx context.Context, container di.DIContaine
 		return ErrEmptyFields
 	case rr.Password == "":
 		return ErrEmptyFields
+	case rr.PasswordConfirm == "":
+		return ErrEmptyFields
+	case rr.Password != rr.PasswordConfirm:
+		return ErrPasswordMatch
 	}
 
 	return nil
 }
 
 type RegisterResponse struct {
-	ID        string `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
+	User               AuthorizationUserResponse `json:"user"`
+	AuthorizationToken string                    `json:"authorization_token"`
 }
 
 // Login
@@ -55,8 +65,6 @@ func (lr *LoginRequest) Validate(ctx context.Context, container di.DIContainerIn
 }
 
 type LoginResponse struct {
-	ID        string `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
+	User               AuthorizationUserResponse `json:"user"`
+	AuthorizationToken string                    `json:"authorization_token"`
 }

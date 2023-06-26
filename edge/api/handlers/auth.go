@@ -36,10 +36,13 @@ func (h *Handler) Register(r *http.Request) (interface{}, int, error) {
 	}
 
 	return RegisterResponse{
-		ID:        authenticateData.User.Id,
-		FirstName: authenticateData.User.FirstName,
-		LastName:  authenticateData.User.LastName,
-		Email:     authenticateData.User.Email,
+		User: AuthorizationUserResponse{
+			ID:        authenticateData.User.Id,
+			FirstName: authenticateData.User.FirstName,
+			LastName:  authenticateData.User.LastName,
+			Email:     authenticateData.User.Email,
+		},
+		AuthorizationToken: authenticateData.AuthorizationToken,
 	}, http.StatusOK, nil
 }
 
@@ -67,9 +70,12 @@ func (h *Handler) Login(r *http.Request) (interface{}, int, error) {
 	}
 
 	return LoginResponse{
-		ID:        authenticateData.User.Id,
-		FirstName: authenticateData.User.FirstName,
-		LastName:  authenticateData.User.LastName,
-		Email:     authenticateData.User.Email,
+		User: AuthorizationUserResponse{
+			ID:        authenticateData.User.Id,
+			FirstName: authenticateData.User.FirstName,
+			LastName:  authenticateData.User.LastName,
+			Email:     authenticateData.User.Email,
+		},
+		AuthorizationToken: authenticateData.AuthorizationToken,
 	}, http.StatusOK, nil
 }

@@ -19,7 +19,7 @@ func AuthenticateMiddleware(container di.DIContainerInterface) func(http.Handler
 				return
 			} else {
 				authResponse, err := container.Services().Auth().Client().Authenticate(r.Context(), &authProto.AuthenticateRequest{
-					Jwt: authorizationToken,
+					AuthorizationToken: authorizationToken,
 				})
 				if err != nil {
 					http.Error(rw, common.ErrUnAuthorized.Error(), http.StatusUnauthorized)
