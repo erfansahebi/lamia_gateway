@@ -5,7 +5,7 @@ import (
 	"github.com/erfansahebi/lamia_gateway/common"
 	"github.com/erfansahebi/lamia_gateway/di"
 	"github.com/erfansahebi/lamia_gateway/model"
-	authProto "github.com/erfansahebi/lamia_shared/services/auth"
+	authProto "github.com/erfansahebi/lamia_shared/go/proto/auth"
 	"net/http"
 )
 

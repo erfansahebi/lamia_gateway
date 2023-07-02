@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/erfansahebi/lamia_gateway/config"
 	"github.com/erfansahebi/lamia_gateway/services"
-	"github.com/erfansahebi/lamia_shared/log"
+	"github.com/erfansahebi/lamia_shared/go/log"
 )
 
 type DIContainerInterface interface {
@@ -45,7 +45,7 @@ func (d *diContainer) initServices() error {
 		return nil
 	}
 
-	d.services = services.NewServiceContainer(d.configuration)
+	d.services = services.NewServiceContainer(d.ctx, d.configuration)
 
 	return nil
 }

@@ -2,7 +2,9 @@ package handlers
 
 import (
 	"encoding/json"
-	authProto "github.com/erfansahebi/lamia_shared/services/auth"
+	"github.com/erfansahebi/lamia_gateway/common"
+	"github.com/erfansahebi/lamia_gateway/edge/api/handlers/validator"
+	authProto "github.com/erfansahebi/lamia_shared/go/proto/auth"
 	"io"
 	"net/http"
 )
@@ -10,12 +12,12 @@ import (
 func (h *Handler) Register(r *http.Request) (interface{}, int, error) {
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
-		return nil, http.StatusBadRequest, ErrFailedToReadRequestBody
+		return nil, http.StatusBadRequest, common.ErrFailedToReadRequestBody
 	}
 
-	var pendData RegisterRequest
+	var pendData validator.RegisterRequest
 	if err = json.Unmarshal(body, &pendData); err != nil {
-		return nil, http.StatusBadRequest, ErrFailedToUnmarshalRequestBody
+		return nil, http.StatusBadRequest, common.ErrFailedToUnmarshalRequestBody
 	}
 
 	if err = pendData.Validate(r.Context(), h.Di); err != nil {
@@ -35,8 +37,8 @@ func (h *Handler) Register(r *http.Request) (interface{}, int, error) {
 		return nil, http.StatusBadRequest, HandleErrorFromGrpc(err)
 	}
 
-	return RegisterResponse{
-		User: AuthorizationUserResponse{
+	return validator.RegisterResponse{
+		User: validator.AuthorizationUserResponse{
 			ID:        authenticateData.User.Id,
 			FirstName: authenticateData.User.FirstName,
 			LastName:  authenticateData.User.LastName,
@@ -49,12 +51,12 @@ func (h *Handler) Register(r *http.Request) (interface{}, int, error) {
 func (h *Handler) Login(r *http.Request) (interface{}, int, error) {
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
-		return nil, http.StatusBadRequest, ErrFailedToReadRequestBody
+		return nil, http.StatusBadRequest, common.ErrFailedToReadRequestBody
 	}
 
-	var pendData LoginRequest
+	var pendData validator.LoginRequest
 	if err = json.Unmarshal(body, &pendData); err != nil {
-		return nil, http.StatusBadRequest, ErrFailedToUnmarshalRequestBody
+		return nil, http.StatusBadRequest, common.ErrFailedToUnmarshalRequestBody
 	}
 
 	if err = pendData.Validate(r.Context(), h.Di); err != nil {
@@ -69,8 +71,8 @@ func (h *Handler) Login(r *http.Request) (interface{}, int, error) {
 		return nil, http.StatusBadRequest, HandleErrorFromGrpc(err)
 	}
 
-	return LoginResponse{
-		User: AuthorizationUserResponse{
+	return validator.LoginResponse{
+		User: validator.AuthorizationUserResponse{
 			ID:        authenticateData.User.Id,
 			FirstName: authenticateData.User.FirstName,
 			LastName:  authenticateData.User.LastName,

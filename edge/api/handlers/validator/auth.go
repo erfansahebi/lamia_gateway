@@ -1,7 +1,8 @@
-package handlers
+package validator
 
 import (
 	"context"
+	"github.com/erfansahebi/lamia_gateway/common"
 	"github.com/erfansahebi/lamia_gateway/di"
 )
 
@@ -25,17 +26,17 @@ type RegisterRequest struct {
 func (rr *RegisterRequest) Validate(ctx context.Context, container di.DIContainerInterface) error {
 	switch {
 	case rr.FirstName == "":
-		return ErrEmptyFields
+		return common.ErrEmptyFields
 	case rr.LastName == "":
-		return ErrEmptyFields
+		return common.ErrEmptyFields
 	case rr.Email == "":
-		return ErrEmptyFields
+		return common.ErrEmptyFields
 	case rr.Password == "":
-		return ErrEmptyFields
+		return common.ErrEmptyFields
 	case rr.PasswordConfirm == "":
-		return ErrEmptyFields
+		return common.ErrEmptyFields
 	case rr.Password != rr.PasswordConfirm:
-		return ErrPasswordMatch
+		return common.ErrPasswordMatch
 	}
 
 	return nil
@@ -56,9 +57,9 @@ type LoginRequest struct {
 func (lr *LoginRequest) Validate(ctx context.Context, container di.DIContainerInterface) error {
 	switch {
 	case lr.Email == "":
-		return ErrEmptyFields
+		return common.ErrEmptyFields
 	case lr.Password == "":
-		return ErrEmptyFields
+		return common.ErrEmptyFields
 	}
 
 	return nil

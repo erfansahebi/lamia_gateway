@@ -2,7 +2,8 @@ package handlers
 
 import (
 	"github.com/erfansahebi/lamia_gateway/common"
-	authProto "github.com/erfansahebi/lamia_shared/services/auth"
+	"github.com/erfansahebi/lamia_gateway/edge/api/handlers/validator"
+	authProto "github.com/erfansahebi/lamia_shared/go/proto/auth"
 	"net/http"
 )
 
@@ -19,7 +20,7 @@ func (h *Handler) UserDetail(r *http.Request) (interface{}, int, error) {
 		return nil, http.StatusBadRequest, HandleErrorFromGrpc(err)
 	}
 
-	return UserDetailResponse{AuthorizationUserResponse{
+	return validator.UserDetailResponse{AuthorizationUserResponse: validator.AuthorizationUserResponse{
 		ID:        userData.User.Id,
 		FirstName: userData.User.FirstName,
 		LastName:  userData.User.LastName,

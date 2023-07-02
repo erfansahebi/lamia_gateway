@@ -3,8 +3,8 @@ package auth
 import (
 	"context"
 	"github.com/erfansahebi/lamia_gateway/config"
-	"github.com/erfansahebi/lamia_shared/log"
-	authProto "github.com/erfansahebi/lamia_shared/services/auth"
+	"github.com/erfansahebi/lamia_shared/go/log"
+	authProto "github.com/erfansahebi/lamia_shared/go/proto/auth"
 	"google.golang.org/grpc"
 )
 
@@ -15,21 +15,23 @@ type AuthServiceInterface interface {
 }
 
 type authService struct {
+	ctx                 context.Context
 	serverConfiguration *config.Config
 
 	configuration *config.ServiceConfiguration
 	client        authProto.AuthServiceClient
 }
 
-func NewAuthService(serverConfiguration *config.Config) AuthServiceInterface {
+func NewAuthService(ctx context.Context, serverConfiguration *config.Config) AuthServiceInterface {
 	return &authService{
+		ctx:                 ctx,
 		serverConfiguration: serverConfiguration,
 	}
 }
 
 func (s *authService) Configuration() *config.ServiceConfiguration {
 	if err := s.initConfiguration(); err != nil {
-		log.WithError(err).Fatalf(context.Background(), "error in load configurations in auth service")
+		log.WithError(err).Fatalf(s.ctx, "error in load configurations in auth service")
 		panic(err)
 	}
 
@@ -51,7 +53,7 @@ func (s *authService) initConfiguration() error {
 
 func (s *authService) Client() authProto.AuthServiceClient {
 	if err := s.initClient(); err != nil {
-		log.WithError(err).Fatalf(context.Background(), "error in init auth service")
+		log.WithError(err).Fatalf(s.ctx, "error in init auth service")
 		panic(err)
 	}
 
@@ -65,7 +67,7 @@ func (s *authService) initClient() error {
 
 	cc, err := grpc.Dial(s.Configuration().URL(), grpc.WithInsecure())
 	if err != nil {
-		log.WithError(err).Fatalf(context.Background(), "error in create client connection with auth service")
+		log.WithError(err).Fatalf(s.ctx, "error in create client connection with auth service")
 		return err
 	}
 

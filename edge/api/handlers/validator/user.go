@@ -1,4 +1,4 @@
-package handlers
+package validator
 
 type UserDetailResponse struct {
 	AuthorizationUserResponse

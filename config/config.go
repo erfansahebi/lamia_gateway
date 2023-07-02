@@ -16,6 +16,10 @@ type Config struct {
 			Host string `env:"LAMIA_AUTH_HOST"`
 			Port string `env:"LAMIA_AUTH_PORT"`
 		}
+		Shop struct {
+			Host string `env:"LAMIA_SHOP_HOST"`
+			Port string `env:"LAMIA_SHOP_PORT"`
+		}
 	}
 }
 

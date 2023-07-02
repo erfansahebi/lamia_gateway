@@ -8,7 +8,7 @@ import (
 	"github.com/erfansahebi/lamia_gateway/edge/api/handlers"
 	"github.com/erfansahebi/lamia_gateway/edge/api/middleware"
 	"github.com/erfansahebi/lamia_gateway/edge/api/routes"
-	"github.com/erfansahebi/lamia_shared/log"
+	"github.com/erfansahebi/lamia_shared/go/log"
 	"github.com/go-chi/chi/v5"
 	"net/http"
 	"os"
@@ -33,12 +33,21 @@ func StartServer(ctx context.Context, configuration *config.Config) {
 			})
 
 			r.Group(func(r chi.Router) {
+
 				r.Use(middleware.AuthenticateMiddleware(h.Di))
+
 				r.Route("/user", func(r chi.Router) {
 
 					routes.RegisterUserRoutes(r, h)
 
 				})
+
+				r.Route("/shop", func(r chi.Router) {
+
+					routes.RegisterShopRoutes(r, h)
+
+				})
+
 			})
 
 		})
