@@ -7,4 +7,5 @@ import (
 
 func RegisterShopRoutes(r chi.Router, h handlers.Handler) {
 	r.Post("/", handlers.Wrap(h.CreateShop))
+	r.Get("/{shop_id}", handlers.Wrap(h.GetShop))
 }

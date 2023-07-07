@@ -48,3 +48,25 @@ func (h *Handler) CreateShop(r *http.Request) (interface{}, int, error) {
 		},
 	}, http.StatusOK, nil
 }
+
+func (h *Handler) GetShop(r *http.Request) (interface{}, int, error) {
+	var pendData validator.GetShopRequest
+	if err := pendData.Validate(r.Context(), h.Di); err != nil {
+		return nil, http.StatusBadRequest, err
+	}
+
+	fetchedShopData, err := h.Di.Services().Shop().Client().Get(r.Context(), &shopProto.GetRequest{
+		Id: pendData.ShopID.String(),
+	})
+	if err != nil {
+		return nil, http.StatusBadRequest, HandleErrorFromGrpc(err)
+	}
+
+	return validator.GetShopResponse{
+		ShopResponse: validator.ShopResponse{
+			ID:     fetchedShopData.Shop.Id,
+			UserID: fetchedShopData.Shop.UserId,
+			Name:   fetchedShopData.Shop.Name,
+		},
+	}, http.StatusOK, nil
+}
