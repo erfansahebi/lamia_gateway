@@ -31,12 +31,12 @@ gRPC supports multiple programming languages, including Go, Python, Java, and mo
 
 Repositories:
 
-- [Lamia EnvDev](https://github.com/erfansahebi/lamia_envdev)
-- [Lamia Gateway](https://github.com/erfansahebi/lamia_gateway)
-- [Lamia Auth](https://github.com/erfansahebi/lamia_auth)
-- [Lamia Shop](https://github.com/erfansahebi/lamia_shop)
-- [Lamia Shared](https://github.com/erfansahebi/lamia_shared)
-- [Lamia Nginx](https://github.com/erfansahebi/lamia_nginx)
+- [Lamia EnvDev](https://github.com/erfansahebi/lamia_envdev) ( Docker )
+- [Lamia Gateway](https://github.com/erfansahebi/lamia_gateway)  ( Go -> Micro Service ) Routing
+- [Lamia Auth](https://github.com/erfansahebi/lamia_auth) ( Go -> Micro Service ) Authenticate
+- [Lamia Shop](https://github.com/erfansahebi/lamia_shop) ( Python -> Micro Service )
+- [Lamia Shared](https://github.com/erfansahebi/lamia_shared) ( Go - Python -> Package) Generate proto files, helper files and etc.
+- [Lamia Nginx](https://github.com/erfansahebi/lamia_nginx) (Nginx -> WebServer )
 
 <hr>
 
